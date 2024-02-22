@@ -6,23 +6,23 @@
     <section>
       <nav>Name/Info</nav>
       <div>
-        <input placeholder="First Name" />
-        <input placeholder="Last Name" />
-        <input placeholder="Date of Birth" />
-        <input placeholder="Favorites Ranking" />
+        <input placeholder="First Name" [(ngModel)]="contact.firstName" name="firstName" />
+        <input placeholder="Last Name" [(ngModel)]="contact.lastName" name="lastName" />
+        <input placeholder="Date of Birth" [(ngModel)]="contact.dateOfBirth" name="dateOfBirth" />
+        <input placeholder="Favorites Ranking" [(ngModel)]="contact.favoritesRanking" name="favoritesRanking" />
       </div>
     </section>
     <section>
       <nav>Phone</nav>
       <div class="flex-column">
         <div class="flex-group">
-          <input placeholder="Phone" />
+          <input placeholder="Phone" [(ngModel)]="contact.phone.phoneNumber"name="phoneNumber" />
           <img src="/assets/plus-grey-blue.png" class="add" />
         </div>
         <div class="radio">
-          <input type="radio" value="mobile"> Mobile
-          <input type="radio" value="work"> Work
-          <input type="radio" value="other"> Other
+          <input type="radio" value="mobile" [(ngModel)]="contact.phone.phoneType" name="phoneType"> Mobile
+          <input type="radio" value="work" [(ngModel)]="contact.phone.phoneType" name="phoneType"> Work
+          <input type="radio" value="other" [(ngModel)]="contact.phone.phoneType" name="phoneType"> Other
         </div>
       </div>
     </section>

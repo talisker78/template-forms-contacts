@@ -21,5 +21,5 @@
   "terminal.integrated.fontSize": 12,
   "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font Mono Light",
   "window.zoomLevel": 1,
-  "workbench.activityBar.location": "hidden",
+  "workbench.activityBar.location": "side",
 }
