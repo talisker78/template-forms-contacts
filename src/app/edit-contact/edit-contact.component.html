@@ -9,18 +9,40 @@
           placeholder="First Name"
           [(ngModel)]="contact.firstName"
           name="firstName"
+          [class.error]="firstName.invalid && (firstName.dirty || firstName.touched)"
+          required
+          minlength="3"
+          #firstName="ngModel"
         />
+        @if(firstName.errors?.['required'] && (firstName.dirty || firstName.touched)) {
+        <em>Please enter a First Name</em>
+        }
+        @if(firstName.errors?.['minlength'] && (firstName.dirty || firstName.touched)) {
+          <em>First Name must be at least 3 characters</em>
+        }
         <input
           placeholder="Last Name"
           [(ngModel)]="contact.lastName"
           name="lastName"
+          [class.error]="lastName.invalid && (lastName.dirty || lastName.touched)"
+          required
+          #lastName="ngModel"
         />
+        @if(lastName.invalid && (lastName.dirty || lastName.touched)) {
+          <em>Please enter a Last Name</em>
+          } 
         <input
           type="date"
           placeholder="Date of Birth"
           [(ngModel)]="contact.dateOfBirth"
           name="dateOfBirth"
+          [class.error]="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)" 
+          required
+          #dateOfBirth="ngModel"
         />
+        @if(dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)) {
+          <em>Please enter a Date of Birth</em>
+          }
         <div>
           <span>Favorites Ranking:</span>
           <input
@@ -70,12 +92,14 @@
     <section>
       <nav>Address</nav>
       <div>
-        <div class="address" ngModelGroup="address">
+        <div class="address" ngModelGroup="address" #addressGroup="ngModelGroup"
+        [class.error]="addressGroup.invalid && (addressGroup.dirty || addressGroup.touched)">
           <div class="flex-group">
             <input
               placeholder="Address"
               [(ngModel)]="contact.address.streetAddress"
               name="streetAddress"
+              required
             />
             <img src="/assets/plus-grey-blue.png" class="add" />
           </div>
@@ -83,6 +107,7 @@
             placeholder="City"
             [(ngModel)]="contact.address.city"
             name="city"
+            required
           />
           <input
             placeholder="State/Region"
@@ -93,6 +118,7 @@
             placeholder="Zip/Postal Code"
             [(ngModel)]="contact.address.postalCode"
             name="postalCode"
+            required
           />
           <select
             [(ngModel)]="contact.address.addressType"
@@ -104,6 +130,10 @@
             }
           </select>
         </div>
+        @if(addressGroup.invalid && (addressGroup.dirty || addressGroup.touched))
+        {
+          <em>Incomplete Address</em>
+        }
       </div>
     </section>
     <section>
@@ -114,13 +144,20 @@
           row="5"
           [(ngModel)]="contact.notes"
           name="notes"
+          [restrictedWords]="['foo', 'bar']"
+          #notes="ngModel"
+          [class.error]="notes.errors?.['restrictedWords'] && (notes.dirty || notes.touched)"
         ></textarea>
+        @if(notes.errors?.['restrictedWords'] && (notes.dirty || notes.touched))
+        {
+          <em>Notes contains restricted words: {{notes.errors?.['restrictedWords']}}</em>
+        }
       </div>
     </section>
     <div class="buttons">
       @if(!contactForm.submitted) {
       <button class="secondary" type="button">Cancel</button>
-      <button class="primary" type="submit">Save</button>
+      <button class="primary" type="submit" [disabled]="contactForm.invalid">Save</button>
       } @else {
       <button disabled>Saving...</button>
       }
