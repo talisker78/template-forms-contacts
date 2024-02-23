@@ -2,7 +2,7 @@
   <h1 class="header">
     Edit Contact
   </h1>
-  <form>
+  <form (ngSubmit)="saveContact()">
     <section>
       <nav>Name/Info</nav>
       <div>
@@ -31,13 +31,13 @@
       <div>
         <div class="address">
           <div class="flex-group">
-            <input placeholder="Address" />
+            <input placeholder="Address" [(ngModel)]="contact.address.streetAddress" name="streetAddress"/>
             <img src="/assets/plus-grey-blue.png" class="add" />
           </div>
-          <input placeholder="City" />
-          <input placeholder="State/Region" />
-          <input placeholder="Zip/Postal Code" />
-          <select>
+          <input placeholder="City" [(ngModel)]="contact.address.city" name="city"/>
+          <input placeholder="State/Region" [(ngModel)]="contact.address.state" name="state" />
+          <input placeholder="Zip/Postal Code" [(ngModel)]="contact.address.postalCode" name="postalCode" />
+          <select [(ngModel)]="contact.address.addressType" name="addressType" required>
             <option value="home">Home</option>
             <option value="work">Work</option>
             <option value="other">Other</option>
@@ -45,9 +45,10 @@
         </div>
       </div>
     </section>
-  </form>
-  <div class="buttons">
-    <button class="secondary">Cancel</button>
-    <button class="primary" (click)="saveContact()">Save</button>
+    <div class="buttons">
+    <button class="secondary" type="button">Cancel</button>
+    <button class="primary" type="submit">Save</button>
   </div>
+  </form>
+  
 </div>

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Contact } from '../contacts/contact.model';
+import { ContactsService } from '../contacts/contacts.service';
 
 @Component({
   imports: [CommonModule, FormsModule],
@@ -13,13 +14,13 @@ import { Contact } from '../contacts/contact.model';
 export class EditContactComponent implements OnInit {
   contact: Contact = {
     id: '',
-    firstName: 'Fred',
+    firstName: '',
     lastName: '',
     dateOfBirth: null,
     favoritesRanking: 0,
     phone: {
-      phoneNumber: '(516) 333-8071',
-      phoneType: 'mobile',
+      phoneNumber: '',
+      phoneType: '',
     },
     address: {
       streetAddress: '',
@@ -29,14 +30,29 @@ export class EditContactComponent implements OnInit {
       addressType: '',
     },
   };
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private contactsService: ContactsService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     const contactId = this.route.snapshot.params['id'];
     if (!contactId) return;
+    this.contactsService.getContact(contactId).subscribe((contact) => {
+      if (contact) this.contact = contact;
+    });
   }
 
   saveContact() {
     console.log(this.contact);
+    this.contactsService.saveContact(this.contact).subscribe({
+      next:  (contact) => {
+        this.router.navigate(['/contacts']);
+        console.log('Contact saved', contact); 
+      },
+      error: (err) => console.error('Error saving contact', err),
+      complete: () => console.log('Save contact completed')
+    });
   }
 }
