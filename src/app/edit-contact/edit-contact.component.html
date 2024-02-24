@@ -4,6 +4,7 @@
     <section>
       <nav>Name/Info</nav>
       <div>
+        <con-profile-icon-selector [(ngModel)]="contact.icon" name="icon"/>
         <input type="hidden" [ngModel]="contact.id" name="id" />
         <input
           placeholder="First Name"
@@ -92,6 +93,7 @@
     <section>
       <nav>Address</nav>
       <div>
+        
         <div class="address" ngModelGroup="address" #addressGroup="ngModelGroup"
         [class.error]="addressGroup.invalid && (addressGroup.dirty || addressGroup.touched)">
           <div class="flex-group">

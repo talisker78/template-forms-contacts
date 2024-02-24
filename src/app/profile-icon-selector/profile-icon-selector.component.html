@@ -1,0 +1,15 @@
+@if(showAllIcons){
+<ul>
+  @for(icon of profileIcons; track icon) {
+  <li>
+    <img [src]="'assets/profile/' + icon" [alt]="icon" [class.selected]="icon === selectedIcon" 
+    (click)="iconSelected(icon)" />
+  </li>
+  }
+</ul>
+}
+@if(showAllIcons === false)
+{
+    <img [src]="'/assets/profile/' + selectedIcon" [alt]="selectedIcon" (click)="showAllIcons = true" />
+}
+

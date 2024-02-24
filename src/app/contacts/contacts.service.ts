@@ -11,7 +11,11 @@ export class ContactsService {
   constructor(private http: HttpClient) { }
 
   getContact(id: string): Observable<Contact | undefined> {
-    return this.http.get<Contact>(`api/contacts/${id}`);
+    return this.http.get<Contact>(`api/contacts/${id}`)
+      .pipe(map(contact => {
+        const dob = contact.dateOfBirth ? new Date(contact.dateOfBirth) : null;
+        return { ...contact, dateOfBirth: dob };
+      }));
   }
 
   getAllContacts(): Observable<Contact[]> {
