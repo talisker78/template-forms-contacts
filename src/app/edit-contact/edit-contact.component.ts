@@ -26,10 +26,10 @@ export class EditContactComponent implements OnInit {
     lastName: '',
     dateOfBirth: null,
     favoritesRanking: 0,
-    phone: {
+    phones: [{
       phoneNumber: '',
       phoneType: '',
-    },
+    }],
     address: {
       streetAddress: '',
       city: '',
@@ -62,5 +62,9 @@ export class EditContactComponent implements OnInit {
       error: (err) => console.error('Error saving contact', err),
       complete: () => console.log('Save contact completed')
     });
+  }
+  
+  addPhone() {
+    this.contact.phones.push({ phoneNumber: '', phoneType: '' });
   }
 }

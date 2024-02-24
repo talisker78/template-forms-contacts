@@ -17,6 +17,9 @@ export class ContactListComponent implements OnInit {
 
   ngOnInit() {
     this.contactsService.getAllContacts().subscribe(contacts => this.contacts = contacts);
+    for(let contact of this.contacts) {
+      console.log(contact);
+    }
   }
 
   get favoriteContacts(): Contact[] {
